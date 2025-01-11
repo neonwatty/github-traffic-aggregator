@@ -106,9 +106,8 @@ def get_user_repositories(username: "neonwatty")
   repos
 end
 
-# Example Usage
 if __FILE__ == $PROGRAM_NAME
-  username = "neonwatty" 
+  username = "neonwatty"
   repo = "meme-search"
   api = GithubRepoApis.new(username: username, repo: repo)
   traffic_data = api.get_all
