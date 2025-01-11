@@ -103,18 +103,32 @@ def get_user_repositories(username: "neonwatty")
     end
   end
 
-  repos
+  return repos
 end
 
-if __FILE__ == $PROGRAM_NAME
-  username = "neonwatty"
-  repo = "meme-search"
-  api = GithubRepoApis.new(username: username, repo: repo)
-  traffic_data = api.get_all
-  puts "Traffic data for #{username}#{repo}:"
-  puts traffic_data
+# save to json file
+def save_to_json(data, filename)
+  File.open(filename, 'w') do |file|
+    file.write(JSON.pretty_generate(data))
+  end
+end
 
-  repositories = get_user_repositories(username: username)
-  puts "Repositories for user #{username}:"
-  repositories.each { |repo| puts repo }
+
+
+  if __FILE__ == $PROGRAM_NAME
+    username = "neonwatty"
+    repo = "meme-search"
+    api = GithubRepoApis.new(username: username, repo: repo)
+    traffic_data = api.get_all
+    puts "Traffic data for #{username}#{repo}:"
+    puts traffic_data
+
+    repositories = get_user_repositories(username: username)
+    puts "Repositories for user #{username}:"
+    repositories.each { |repo| puts repo }
+
+    save_to_json(traffic_data, 'traffic_data.json')
+    save_to_json(repositories, 'repositories.json')
+
+    puts "Data saved to traffic_data.json and repositories.json"
 end
