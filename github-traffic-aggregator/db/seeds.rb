@@ -12,14 +12,24 @@ end
 
 # create repo metadata from test data file in test_data/repo_metadata.json
 repo_metadata = JSON.parse(File.read('test_data/repo_metadata.json'))
-repo_metadata.each do |repo|
-  r = RepoMetadata.create(repo)
+
+# loop over each key-value pair in the repo_metadata hash
+# create a new RepoMetadata object with the key-value pair as attributes
+repo_metadata.each do |repo_name, subdict|
+  # create a new entry hash with the repo key and value
+  entry = {repo: Repo.find_by(name: repo_name)}
+
+  # merge entry and subdict hashes
+  data = entry.merge(subdict)
+
+  # create and save
+  r = RepoMetadata.create(data)
   r.save if r.valid?
 end
 
-# create repo traffic from test data file in test_data/repo_traffic_data.json
-repo_traffic = JSON.parse(File.read('test_data/repo_traffic_data.json'))
-repo_traffic.each do |repo|
-  r = RepoTraffic.create(repo)
-  r.save if r.valid?
-end
+# # create repo traffic from test data file in test_data/repo_traffic_data.json
+# repo_traffic = JSON.parse(File.read('test_data/repo_traffic_data.json'))
+# repo_traffic.each do |repo|
+#   r = RepoTraffic.create(repo)
+#   r.save if r.valid?
+# end

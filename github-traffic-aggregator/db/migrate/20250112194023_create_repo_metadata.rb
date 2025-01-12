@@ -2,7 +2,7 @@ class CreateRepoMetadata < ActiveRecord::Migration[6.1]
     def change
       create_table :repo_metadata do |t|
         t.references :repo, null: false, foreign_key: true
-        t.integer :repo_id
+        t.integer :repo_id_github
         t.string :node_id
         t.string :name
         t.string :full_name
@@ -70,7 +70,7 @@ class CreateRepoMetadata < ActiveRecord::Migration[6.1]
         t.boolean :archived
         t.boolean :disabled
         t.integer :open_issues_count
-        t.jsonb :license, default: {}
+        t.json :license, default: {}
         t.boolean :allow_forking
         t.boolean :is_template
         t.boolean :web_commit_signoff_required
