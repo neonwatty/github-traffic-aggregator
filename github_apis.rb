@@ -45,7 +45,33 @@ class GithubRepoApis
     else
       puts "Failed to fetch data for endpoint #{endpoint} - received: #{response.code}"
       puts response.body
-      nil
+      {}
+    end
+  end
+
+  def get_repo_metadata
+    # GitHub API URL for endpoint
+    url = URI("https://api.github.com/repos/#{@username}/#{@repository}")
+    request = Net::HTTP::Get.new(url, @headers)
+
+    # Make the GET request
+    response = Net::HTTP.start(url.hostname, url.port, use_ssl: true) do |http|
+      http.request(request)
+    end
+
+    # Check the response
+    if response.is_a?(Net::HTTPSuccess)
+      @data = JSON.parse(response.body)
+
+      # delete 'owner' sub-hash
+      @data.delete('owner')
+      @data
+    else
+      puts "Failed to fetch data for repository #{@repository} - received: #{response.code}"
+      puts response.body
+
+      # return empty hash if no data
+      {}
     end
   end
 
@@ -117,18 +143,34 @@ end
 
   if __FILE__ == $PROGRAM_NAME
     username = "neonwatty"
-    repo = "meme-search"
-    api = GithubRepoApis.new(username: username, repo: repo)
-    traffic_data = api.get_all
-    puts "Traffic data for #{username}#{repo}:"
-    puts traffic_data
 
+    # get repositories for user
+    puts "Fetching reposiotires for user #{username}:"
     repositories = get_user_repositories(username: username)
-    puts "Repositories for user #{username}:"
-    repositories.each { |repo| puts repo }
+    puts "Done!"
 
-    save_to_json(traffic_data, 'traffic_data.json')
-    save_to_json(repositories, 'repositories.json')
+    # save to json file
+    save_to_json(repositories, 'user_repos.json')
 
-    puts "Data saved to traffic_data.json and repositories.json"
+    # loop over repositories, get traffic data for each
+    repositories = ["meme-search", "github-traffic-aggregator"]
+    all_traffic_data = {}
+    all_metadata = {}
+    repositories.each do |repo|
+      puts "Getting traffic data for #{username}/#{repo}:"
+      api = GithubRepoApis.new(username: username, repo: repo)
+      traffic_data = api.get_all
+      all_traffic_data[repo] = traffic_data
+      puts 'Done!'
+
+      puts "Getting metadata for #{username}/#{repo}:"
+      metadata = api.get_repo_metadata
+      all_metadata[repo] = metadata
+      puts 'Done!'
+      end
+
+    save_to_json(all_traffic_data, 'repo_traffic_data.json')
+    save_to_json(all_metadata, 'repo_meta_data.json')
+
+    puts "Data saved to repo_traffic_data.json and repo_meta_data.json"
 end
