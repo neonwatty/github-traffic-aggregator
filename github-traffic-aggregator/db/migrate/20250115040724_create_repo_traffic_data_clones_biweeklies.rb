@@ -6,7 +6,7 @@ class CreateRepoTrafficDataClonesBiweeklies < ActiveRecord::Migration[8.0]
       t.datetime :end_timestamp
       t.integer :count
       t.integer :uniques
-      
+
       t.timestamps
     end
   end

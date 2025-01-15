@@ -35,7 +35,7 @@ repo_traffic.each do |repo_name, subdict|
       # get biweekly views
       data = {
         'repo': Repo.find_by(name: repo_name),
-        'count': traffic_subdict['count'], 
+        'count': traffic_subdict['count'],
         'uniques': traffic_subdict['uniques'],
         'start_timestamp': traffic_subdict['start_timestamp'],
         'end_timestamp': traffic_subdict['end_timestamp']
@@ -57,7 +57,7 @@ repo_traffic.each do |repo_name, subdict|
       # get biweekly clones
       data = {
         'repo': Repo.find_by(name: repo_name),
-        'count': traffic_subdict['count'], 
+        'count': traffic_subdict['count'],
         'uniques': traffic_subdict['uniques'],
         'start_timestamp': traffic_subdict['start_timestamp'],
         'end_timestamp': traffic_subdict['end_timestamp']

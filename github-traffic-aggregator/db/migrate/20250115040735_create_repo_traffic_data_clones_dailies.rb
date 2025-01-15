@@ -5,7 +5,7 @@ class CreateRepoTrafficDataClonesDailies < ActiveRecord::Migration[8.0]
       t.datetime :timestamp
       t.integer :count
       t.integer :uniques
-      
+
       t.timestamps
     end
   end
