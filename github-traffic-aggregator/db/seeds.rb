@@ -33,18 +33,13 @@ repo_traffic.each do |repo_name, subdict|
   subdict.each do |traffic_type, traffic_subdict|
     if traffic_type == "views"
       # get biweekly views
-      biweekly_views = {
+      data = {
+        'repo': Repo.find_by(name: repo_name),
         'count': traffic_subdict['count'], 
         'uniques': traffic_subdict['uniques'],
         'start_timestamp': traffic_subdict['start_timestamp'],
         'end_timestamp': traffic_subdict['end_timestamp']
       }
-
-      # create a new entry hash with the repo key and value
-      entry = { repo: Repo.find_by(name: repo_name) }
-
-      # merge entry and subdict hashes
-      data = entry.merge(biweekly_views)
 
       # save to ViewsBiweekly table
       r = RepoTrafficDataViewsBiweekly.create(data)
@@ -60,18 +55,13 @@ repo_traffic.each do |repo_name, subdict|
 
     elsif traffic_type == "clones"
       # get biweekly clones
-      biweekly_clones = {
+      data = {
+        'repo': Repo.find_by(name: repo_name),
         'count': traffic_subdict['count'], 
         'uniques': traffic_subdict['uniques'],
         'start_timestamp': traffic_subdict['start_timestamp'],
         'end_timestamp': traffic_subdict['end_timestamp']
       }
-
-      # create a new entry hash with the repo key and value
-      entry = { repo: Repo.find_by(name: repo_name) }
-
-      # merge entry and subdict hashes
-      data = entry.merge(biweekly_clones)
 
       # save to ClonesBiweekly table
       r = RepoTrafficDataClonesBiweekly.create(data)
@@ -85,23 +75,23 @@ repo_traffic.each do |repo_name, subdict|
         r.save if r.valid?
       end
 
-    # elsif traffic_type == "referrers"
-    #   # unpack and save referrers
-    #   referrers = traffic_subdict
-    #   referrers.each do |referrer|
-    #     referrer['repo'] = Repo.find_by(name: repo_name)
-    #     r = RepoTrafficDataReferrer.create(referrer)
-    #     r.save if r.valid?
-    #   end
+    elsif traffic_type == "referrers"
+      # unpack and save referrers
+      referrers = traffic_subdict
+      referrers.each do |referrer|
+        referrer['repo'] = Repo.find_by(name: repo_name)
+        r = RepoTrafficDataReferrersWeekly.create(referrer)
+        r.save if r.valid?
+      end
 
-    # elsif traffic_type == "paths"
-    #   # unpack and save paths
-    #   paths = traffic_subdict
-    #   paths.each do |path|
-    #     path['repo'] = Repo.find_by(name: repo_name)
-    #     r = RepoTrafficDataPath.create(path)
-    #     r.save if r.valid?
-    #   end
+    elsif traffic_type == "paths"
+      # unpack and save paths
+      paths = traffic_subdict
+      paths.each do |path|
+        path['repo'] = Repo.find_by(name: repo_name)
+        r = RepoTrafficDataPathsWeekly.create(path)
+        r.save if r.valid?
+      end
     end
   end
 end
