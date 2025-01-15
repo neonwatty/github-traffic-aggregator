@@ -175,13 +175,41 @@ end
     save_to_json(repositories, 'user_repos.json')
 
     # loop over repositories, get traffic data for each
-    repositories = ["meme-search", "github-traffic-aggregator"]
+    repositories = ["meme-search"]
     all_traffic_data = {}
     all_metadata = {}
     repositories.each do |repo|
       puts "Getting traffic data for #{username}/#{repo}:"
       api = GithubRepoApis.new(username: username, repo: repo)
       traffic_data = api.get_all
+
+      # if traffic_data is not empty
+      if traffic_data['views']['views']
+        # add start and end timestamps to referrers and paths
+        start_timestamp = traffic_data["views"]["views"].first["timestamp"]
+        end_timestamp = traffic_data["views"]["views"].last["timestamp"]
+
+        # add to views hash
+        traffic_data['views']['start_timestamp'] = start_timestamp
+        traffic_data['views']['end_timestamp'] = end_timestamp
+
+        # add to clones hash
+        traffic_data['clones']['start_timestamp'] = start_timestamp
+        traffic_data['clones']['end_timestamp'] = end_timestamp
+
+        # loop over elements of referrers and add both timestamps
+        traffic_data['referrers'].each do |referrer|
+          referrer["start_timestamp"] = start_timestamp
+          referrer["end_timestamp"] = end_timestamp
+        end
+
+        # loop over elements of paths and add both timestamps
+        traffic_data["paths"].each do |path|
+          path["start_timestamp"] = start_timestamp
+          path["end_timestamp"] = end_timestamp
+        end
+      end
+
       all_traffic_data[repo] = traffic_data
       puts 'Done!'
 
