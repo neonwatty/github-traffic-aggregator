@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RepoTrafficDatumTest < ActiveSupport::TestCase
+class RepoTrafficDataViewsBiweeklyTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

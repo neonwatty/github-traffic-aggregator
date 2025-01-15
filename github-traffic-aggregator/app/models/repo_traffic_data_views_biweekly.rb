@@ -1,0 +1,2 @@
+class RepoTrafficDataViewsBiweekly < ApplicationRecord
+end

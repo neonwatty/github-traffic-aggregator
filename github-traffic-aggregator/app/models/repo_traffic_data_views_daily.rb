@@ -1,0 +1,2 @@
+class RepoTrafficDataViewsDaily < ApplicationRecord
+end

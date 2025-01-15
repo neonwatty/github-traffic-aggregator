@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_12_195433) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_15_031354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -119,6 +119,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_195433) do
     t.index ["repo_id"], name: "index_repo_traffic_data_on_repo_id"
   end
 
+  create_table "repo_traffic_data_views_biweeklies", force: :cascade do |t|
+    t.bigint "repo_id", null: false
+    t.datetime "start_timestamp"
+    t.datetime "end_timestamp"
+    t.integer "count"
+    t.integer "uniques"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repo_id"], name: "index_repo_traffic_data_views_biweeklies_on_repo_id"
+  end
+
+  create_table "repo_traffic_data_views_dailies", force: :cascade do |t|
+    t.bigint "repo_id", null: false
+    t.datetime "timestamp"
+    t.integer "count"
+    t.integer "uniques"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repo_id"], name: "index_repo_traffic_data_views_dailies_on_repo_id"
+  end
+
   create_table "repos", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id", null: false
@@ -136,5 +157,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_195433) do
 
   add_foreign_key "repo_metadata", "repos"
   add_foreign_key "repo_traffic_data", "repos"
+  add_foreign_key "repo_traffic_data_views_biweeklies", "repos"
+  add_foreign_key "repo_traffic_data_views_dailies", "repos"
   add_foreign_key "repos", "users"
 end
