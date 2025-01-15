@@ -61,3 +61,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# user added
+gem "pg"
+gem "pg_search"
+gem "pagy", "~> 9.0"
+gem "tailwindcss-rails", "~> 3.0"

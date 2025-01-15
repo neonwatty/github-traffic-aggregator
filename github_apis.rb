@@ -66,6 +66,15 @@ class GithubRepoApis
       # delete 'owner' sub-hash
       @data.delete('owner')
 
+      # remove 'permissions'
+      @data.delete("permissions")
+
+      # remove "license"
+      @data.delete("license")
+
+      # remove "security_and_analysis"
+      @data.delete("security_and_analysis")
+
       # change "created_at" to "created_at_github"
       @data["created_at_github"] = @data["created_at"]
       @data.delete("created_at")
@@ -73,6 +82,11 @@ class GithubRepoApis
       # change "updated_at" to "updated_at_github"
       @data["updated_at_github"] = @data["updated_at"]
       @data.delete("updated_at")
+
+      # change "pushed at" to "pushed_at_github"
+      @data["pushed_at_github"] = @data["pushed_at"]
+      @data.delete("pushed_at")
+
       @data
     else
       puts "Failed to fetch data for repository #{@repository} - received: #{response.code}"

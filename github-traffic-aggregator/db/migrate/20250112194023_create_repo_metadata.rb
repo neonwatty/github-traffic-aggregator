@@ -47,9 +47,9 @@ class CreateRepoMetadata < ActiveRecord::Migration[6.1]
         t.string :labels_url
         t.string :releases_url
         t.string :deployments_url
-        t.datetime :created_at
-        t.datetime :updated_at
-        t.datetime :pushed_at
+        t.datetime :created_at_github
+        t.datetime :updated_at_github
+        t.datetime :pushed_at_github
         t.string :git_url
         t.string :ssh_url
         t.string :clone_url
@@ -70,7 +70,7 @@ class CreateRepoMetadata < ActiveRecord::Migration[6.1]
         t.boolean :archived
         t.boolean :disabled
         t.integer :open_issues_count
-        t.json :license, default: {}
+        t.jsonb :license, default: {}
         t.boolean :allow_forking
         t.boolean :is_template
         t.boolean :web_commit_signoff_required

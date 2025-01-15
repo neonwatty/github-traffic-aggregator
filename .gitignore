@@ -1,5 +1,6 @@
 # apple artifacts
 **.DS_Store
+db_data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -47,7 +47,7 @@
     "deployments_url": "https://api.github.com/repos/neonwatty/meme-search/deployments",
     "created_at_github": "2024-06-08T22:08:51Z",
     "updated_at_github": "2025-01-11T08:43:20Z",
-    "pushed_at": "2025-01-07T01:39:26Z",
+    "pushed_at_github": "2025-01-07T01:39:26Z",
     "git_url": "git://github.com/neonwatty/meme-search.git",
     "ssh_url": "git@github.com:neonwatty/meme-search.git",
     "clone_url": "https://github.com/neonwatty/meme-search.git",
@@ -68,13 +68,6 @@
     "archived": false,
     "disabled": false,
     "open_issues_count": 2,
-    "license": {
-      "key": "apache-2.0",
-      "name": "Apache License 2.0",
-      "spdx_id": "Apache-2.0",
-      "url": "https://api.github.com/licenses/apache-2.0",
-      "node_id": "MDc6TGljZW5zZTI="
-    },
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
@@ -92,30 +85,6 @@
     "open_issues": 2,
     "watchers": 428,
     "default_branch": "main",
-    "permissions": {
-      "admin": true,
-      "maintain": true,
-      "push": true,
-      "triage": true,
-      "pull": true
-    },
-    "security_and_analysis": {
-      "secret_scanning": {
-        "status": "enabled"
-      },
-      "secret_scanning_push_protection": {
-        "status": "enabled"
-      },
-      "dependabot_security_updates": {
-        "status": "disabled"
-      },
-      "secret_scanning_non_provider_patterns": {
-        "status": "disabled"
-      },
-      "secret_scanning_validity_checks": {
-        "status": "disabled"
-      }
-    },
     "network_count": 17,
     "subscribers_count": 4
   },
@@ -125,27 +94,6 @@
     "name": "gtihub-traffic-aggregator",
     "full_name": "neonwatty/gtihub-traffic-aggregator",
     "private": false,
-    "owner": {
-      "login": "neonwatty",
-      "id": 16326421,
-      "node_id": "MDQ6VXNlcjE2MzI2NDIx",
-      "avatar_url": "https://avatars.githubusercontent.com/u/16326421?v=4",
-      "gravatar_id": "",
-      "url": "https://api.github.com/users/neonwatty",
-      "html_url": "https://github.com/neonwatty",
-      "followers_url": "https://api.github.com/users/neonwatty/followers",
-      "following_url": "https://api.github.com/users/neonwatty/following{/other_user}",
-      "gists_url": "https://api.github.com/users/neonwatty/gists{/gist_id}",
-      "starred_url": "https://api.github.com/users/neonwatty/starred{/owner}{/repo}",
-      "subscriptions_url": "https://api.github.com/users/neonwatty/subscriptions",
-      "organizations_url": "https://api.github.com/users/neonwatty/orgs",
-      "repos_url": "https://api.github.com/users/neonwatty/repos",
-      "events_url": "https://api.github.com/users/neonwatty/events{/privacy}",
-      "received_events_url": "https://api.github.com/users/neonwatty/received_events",
-      "type": "User",
-      "user_view_type": "public",
-      "site_admin": false
-    },
     "html_url": "https://github.com/neonwatty/gtihub-traffic-aggregator",
     "description": null,
     "fork": false,
@@ -188,7 +136,7 @@
     "deployments_url": "https://api.github.com/repos/neonwatty/gtihub-traffic-aggregator/deployments",
     "created_at_github": "2025-01-02T23:00:14Z",
     "updated_at_github": "2025-01-12T03:08:14Z",
-    "pushed_at": "2025-01-12T03:08:10Z",
+    "pushed_at_github": "2025-01-12T03:08:10Z",
     "git_url": "git://github.com/neonwatty/gtihub-traffic-aggregator.git",
     "ssh_url": "git@github.com:neonwatty/gtihub-traffic-aggregator.git",
     "clone_url": "https://github.com/neonwatty/gtihub-traffic-aggregator.git",
@@ -209,7 +157,6 @@
     "archived": false,
     "disabled": false,
     "open_issues_count": 0,
-    "license": null,
     "allow_forking": true,
     "is_template": false,
     "web_commit_signoff_required": false,
@@ -219,13 +166,6 @@
     "open_issues": 0,
     "watchers": 0,
     "default_branch": "main",
-    "permissions": {
-      "admin": true,
-      "maintain": true,
-      "push": true,
-      "triage": true,
-      "pull": true
-    },
     "network_count": 0,
     "subscribers_count": 1
   }

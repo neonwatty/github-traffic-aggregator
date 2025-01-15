@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  github_traffic_aggregator_db:
+    image: pgvector/pgvector:pg17
+    container_name: github-traffic-aggregator-db # note: must use - and not _ as ActiveRecord uses URI::RFC2396_Parser to parse database URLs
+    volumes:
+      - ./db_data/github-traffic-aggregator-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: github_traffic_aggregator
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
