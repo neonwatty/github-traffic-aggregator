@@ -1,6 +1,6 @@
 class CreateRepoMetadata < ActiveRecord::Migration[6.1]
     def change
-      create_table :repo_metadatum do |t|
+      create_table :repo_metadata do |t|
         t.references :repo, null: false, foreign_key: true
         t.integer :repo_id_github
         t.string :node_id

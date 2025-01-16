@@ -23,7 +23,7 @@ repo_metadata.each do |repo_name, subdict|
   data = entry.merge(subdict)
 
   # create and save
-  r = RepoMetadata.create(data)
+  r = RepoData::RepoMetadata.create(data)
   r.save if r.valid?
 end
 
@@ -42,14 +42,14 @@ repo_traffic.each do |repo_name, subdict|
       }
 
       # save to ViewsBiweekly table
-      r = RepoTrafficDataViewsBiweekly.create(data)
+      r = RepoData::RepoTrafficDataViewsBiweekly.create(data)
       r.save if r.valid?
 
       # unpack and save daily views
       daily_views = traffic_subdict['views']
       daily_views.each do |view|
         view['repo'] = Repo.find_by(name: repo_name)
-        r = RepoTrafficDataViewsDaily.create(view)
+        r = RepoData::RepoTrafficDataViewsDaily.create(view)
         r.save if r.valid?
       end
 
@@ -64,14 +64,14 @@ repo_traffic.each do |repo_name, subdict|
       }
 
       # save to ClonesBiweekly table
-      r = RepoTrafficDataClonesBiweekly.create(data)
+      r = RepoData::RepoTrafficDataClonesBiweekly.create(data)
       r.save if r.valid?
 
       # unpack and save daily clones
       daily_clones = traffic_subdict['clones']
       daily_clones.each do |clone|
         clone['repo'] = Repo.find_by(name: repo_name)
-        r = RepoTrafficDataClonesDaily.create(clone)
+        r = RepoData::RepoTrafficDataClonesDaily.create(clone)
         r.save if r.valid?
       end
 
@@ -80,7 +80,7 @@ repo_traffic.each do |repo_name, subdict|
       referrers = traffic_subdict
       referrers.each do |referrer|
         referrer['repo'] = Repo.find_by(name: repo_name)
-        r = RepoTrafficDataReferrersWeekly.create(referrer)
+        r = RepoData::RepoTrafficDataReferrersWeekly.create(referrer)
         r.save if r.valid?
       end
 
@@ -89,7 +89,7 @@ repo_traffic.each do |repo_name, subdict|
       paths = traffic_subdict
       paths.each do |path|
         path['repo'] = Repo.find_by(name: repo_name)
-        r = RepoTrafficDataPathsWeekly.create(path)
+        r = RepoData::RepoTrafficDataPathsWeekly.create(path)
         r.save if r.valid?
       end
     end

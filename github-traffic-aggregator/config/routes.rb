@@ -11,4 +11,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :users
+  resources :repos
+  namespace :repo_data do
+        resources :repo_traffic_data_views_biweeklies, only: [ :index ]
+        resources :repo_traffic_data_views_dailies, only: [ :index ]
+        resources :repo_traffic_data_clones_biweeklies, only: [ :index ]
+        resources :repo_traffic_data_clones_dailies, only: [ :index ]
+        resources :repo_traffic_data_referrers_biweeklies, only: [ :index ]
+        resources :repo_traffic_data_paths_biweeklies, only: [ :index ]
+  end
 end
