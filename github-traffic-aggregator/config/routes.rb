@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "repos/index"
+  get "repos/show"
+  get "users/index"
+  get "users/show"
+  get "users/new"
+  get "users/edit"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -14,12 +20,14 @@ Rails.application.routes.draw do
 
   resources :users
   resources :repos
-  namespace :repo_data do
-        resources :repo_traffic_data_views_biweeklies, only: [ :index ]
-        resources :repo_traffic_data_views_dailies, only: [ :index ]
-        resources :repo_traffic_data_clones_biweeklies, only: [ :index ]
-        resources :repo_traffic_data_clones_dailies, only: [ :index ]
-        resources :repo_traffic_data_referrers_biweeklies, only: [ :index ]
-        resources :repo_traffic_data_paths_biweeklies, only: [ :index ]
-  end
+  resources :repo_data
+
+  # namespace :repo_data do
+  #       resources :repo_traffic_data_views_biweeklies, only: [ :index ]
+  #       resources :repo_traffic_data_views_dailies, only: [ :index ]
+  #       resources :repo_traffic_data_clones_biweeklies, only: [ :index ]
+  #       resources :repo_traffic_data_clones_dailies, only: [ :index ]
+  #       resources :repo_traffic_data_referrers_biweeklies, only: [ :index ]
+  #       resources :repo_traffic_data_paths_biweeklies, only: [ :index ]
+  # end
 end

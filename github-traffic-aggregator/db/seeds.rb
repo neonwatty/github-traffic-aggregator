@@ -30,11 +30,13 @@ end
 # create repo traffic from test data file in test_data/repo_traffic_data.json
 repo_traffic = JSON.parse(File.read('./db/test_data/repo_traffic_data.json'))
 repo_traffic.each do |repo_name, subdict|
+  puts "Processing #{repo_name}"
+  repo = Repo.find_by(name: repo_name)
   subdict.each do |traffic_type, traffic_subdict|
     if traffic_type == "views"
       # get biweekly views
       data = {
-        'repo': Repo.find_by(name: repo_name),
+        'repo': repo,
         'count': traffic_subdict['count'],
         'uniques': traffic_subdict['uniques'],
         'start_timestamp': traffic_subdict['start_timestamp'],

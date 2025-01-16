@@ -1,0 +1,10 @@
+<div>
+   <h1> RepoData for <%= @repo.name %> </h1>
+    <h2> Traffic </h2>
+    <ul>
+        <li> Views: <%= @repo_data_traffic_data_views_daily.count %> </li>
+        <li> Unique Views: <%= @repo_data_traffic_data_views_daily.uniques %> </li>
+        <li> Clones: <%= @repo_data_traffic_data_clones_daily.count %> </li>
+        <li> Unique Clones: <%= @repo_data_traffic_data_clones_daily.uniques %> </li>
+    </ul>
+</div>

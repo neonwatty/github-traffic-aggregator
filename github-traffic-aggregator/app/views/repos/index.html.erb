@@ -1,0 +1,12 @@
+<div>
+  <h1 class="text-3xl">Repos</h1>
+  <h2 class="text-lg">Only listing those with downloaded data </h2>
+  <ul class="list-disc list-inside">
+    <% @repos.each do |repo| %>    
+      <% has_data = RepoData::RepoTrafficDataViewsDaily.find_by({repo: repo}) %>
+      <% if has_data %>
+      <li><%= link_to repo.name, repo_path(repo) %></li>
+      <%end%>
+    <% end %>
+  </ul>
+</div>
