@@ -1,10 +1,25 @@
 <div>
    <h1> RepoData for <%= @repo.name %> </h1>
     <h2> Traffic </h2>
-    <ul>
-        <li> Views: <%= @repo_data_traffic_data_views_daily.count %> </li>
-        <li> Unique Views: <%= @repo_data_traffic_data_views_daily.uniques %> </li>
-        <li> Clones: <%= @repo_data_traffic_data_clones_daily.count %> </li>
-        <li> Unique Clones: <%= @repo_data_traffic_data_clones_daily.uniques %> </li>
-    </ul>
+        <% repo_traffic_data = RepoData::RepoTrafficDataViewsDaily.where(repo: @repo) %>
+        <table class="table-auto border-collapse border border-gray-200 w-full text-left">
+        <thead>
+            <tr class="bg-gray-100">
+            <th class="border border-gray-300 px-4 py-2">Timestamp</th>
+            <th class="border border-gray-300 px-4 py-2">Views</th>
+            <th class="border border-gray-300 px-4 py-2">Unique Views</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% repo_traffic_data.each do |repo_traffic| %>
+            <tr class="hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-2"><%= repo_traffic.timestamp %></td>
+                <td class="border border-gray-300 px-4 py-2"><%= repo_traffic.count %></td>
+                <td class="border border-gray-300 px-4 py-2"><%= repo_traffic.uniques %></td>
+            </tr>
+            <% end %>
+        </tbody>
+        </table>
+
+    
 </div>

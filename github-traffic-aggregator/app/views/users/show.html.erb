@@ -1,12 +1,24 @@
 <div>
   <h1 class="text-3xl">Repos of <%= @user.username %></h1>
   <h2 class="text-lg">Only listing those with downloaded data </h2>
-  <ul class="list-disc list-inside">
-    <% @repos.each do |repo| %>    
+ <table class="table-auto border-collapse border border-gray-200 w-full text-left">
+  <thead>
+    <tr class="bg-gray-100">
+      <th class="border border-gray-300 px-4 py-2">Repository Name</th>
+      <th class="border border-gray-300 px-4 py-2">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @repos.each do |repo| %>
       <% has_data = RepoData::RepoTrafficDataViewsDaily.find_by({repo: repo}) %>
       <% if has_data %>
-      <li><%= link_to repo.name, repo_path(repo) %></li>
-      <%end%>
+        <tr class="hover:bg-gray-50">
+          <td class="border border-gray-300 px-4 py-2"><%= repo.name %></td>
+          <td class="border border-gray-300 px-4 py-2"><%= link_to 'View Repository', repo_path(repo), class: "text-blue-500 hover:underline" %></td>
+        </tr>
+      <% end %>
     <% end %>
-  </ul>
+  </tbody>
+</table>
+
 </div>
