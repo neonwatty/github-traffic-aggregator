@@ -6,8 +6,6 @@ class ReposController < ApplicationController
 
   def show
     # Get the repo_data
-    puts "params[:id]: #{params[:id]}"
-    puts "Repo.find(params[:id]): #{Repo.find(params[:id])}"
     @repo = Repo.find(params[:id])
     @repo_data_traffic_data_views_daily = RepoData::RepoTrafficDataViewsDaily.find_by({repo: Repo.find(params[:id])})
     @repo_data_traffic_data_views_biweekly = RepoData::RepoTrafficDataViewsBiweekly.find_by({repo: Repo.find(params[:id])})

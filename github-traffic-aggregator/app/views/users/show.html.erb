@@ -1,4 +1,12 @@
 <div>
-  <h1 class="font-bold text-4xl">Users#show</h1>
-  <p>Find me in app/views/users/show.html.erb</p>
+  <h1 class="text-3xl">Repos of <%= @user.username %></h1>
+  <h2 class="text-lg">Only listing those with downloaded data </h2>
+  <ul class="list-disc list-inside">
+    <% @repos.each do |repo| %>    
+      <% has_data = RepoData::RepoTrafficDataViewsDaily.find_by({repo: repo}) %>
+      <% if has_data %>
+      <li><%= link_to repo.name, repo_path(repo) %></li>
+      <%end%>
+    <% end %>
+  </ul>
 </div>

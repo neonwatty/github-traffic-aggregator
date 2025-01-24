@@ -8,7 +8,9 @@ class UsersController < ApplicationController
   def show
     # Get the user
     @user = User.find(params[:id])
+    @repos = Repo.where(user: @user)  
   end
+  
 
   def new
   end

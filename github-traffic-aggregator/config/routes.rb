@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :users
   resources :repos
   resources :repo_data
+  
 
   # namespace :repo_data do
   #       resources :repo_traffic_data_views_biweeklies, only: [ :index ]
