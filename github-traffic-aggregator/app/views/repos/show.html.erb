@@ -1,7 +1,13 @@
 <div>
    <h1> RepoData for <%= @repo.name %> </h1>
+
+<% repo_traffic_data = RepoData::RepoTrafficDataViewsDaily.where(repo: @repo) %>
+<% repo_traffic = repo_traffic_data.map { |data| [data.timestamp, data.count] } %>
+
+
+    <%= line_chart repo_traffic %>
+
     <h2> Traffic </h2>
-        <% repo_traffic_data = RepoData::RepoTrafficDataViewsDaily.where(repo: @repo) %>
         <table class="table-auto border-collapse border border-gray-200 w-full text-left">
         <thead>
             <tr class="bg-gray-100">
