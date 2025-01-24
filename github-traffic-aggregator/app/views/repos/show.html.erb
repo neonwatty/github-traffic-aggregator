@@ -1,45 +1,65 @@
-<div>
-   <h1> RepoData for <%= @repo.name %> </h1>
+<div class="w-full h-full">
+   <h1 class="text-2xl auto mx-auto text-center"> RepoData for <%= @repo.name %> </h1>
+    <% repo_view_data = RepoData::RepoTrafficDataViewsDaily.where(repo: @repo) %>
+    <% repo_view_counts = repo_view_data.map { |data| [data.timestamp, data.count] } %>
 
-<% repo_traffic_data = RepoData::RepoTrafficDataViewsDaily.where(repo: @repo) %>
-<%# repo_views = repo_traffic_data.map { |data| [data.timestamp, data.count] } %>
-<%# repo_uniques = repo_traffic_data.map { |data| [data.timestamp, data.uniques] } %>
- <%#= repo_uniques %>
+    <%# collect uniques and fill in 0 for any missing dates  %>
+    <% repo_view_counts = repo_view_data.map { |data| [data.timestamp.strftime("%Y-%m-%d"), data.count] } %>
+    <% start_date = repo_view_data.minimum(:timestamp).to_date %>
+    <% end_date = repo_view_data.maximum(:timestamp).to_date %>
+    <% all_dates = (start_date..end_date).map { |date| date.strftime("%Y-%m-%d") } %>
+    <% repo_view_counts_hash = repo_view_counts.to_h %>
+    <% all_dates.each do |date| %>
+      <% repo_view_counts_hash[date] ||= 0 %>
+    <% end %>
+    <% repo_view_counts = repo_view_counts_hash.to_a %>
+    <% repo_view_counts = repo_view_counts.sort_by { |date, _| Date.parse(date) } %>
 
-<%# repo_views = repo_traffic_data.map { |data| [data.timestamp, data.count] } %>
-<%# repo_uniques = repo_traffic_data.map { |data| [data.timestamp, data.uniques] } %>
-    <%#= line_chart repo_uniques, xtitle: "Time", ytitle: "Count" %>
+    <% repo_view_uniques = repo_view_data.map { |data| [data.timestamp.strftime("%Y-%m-%d"), data.uniques] } %>
+    <% repo_view_uniques_hash = repo_view_uniques.to_h %>
+    <% all_dates.each do |date| %>
+      <% repo_view_uniques_hash[date] ||= 0 %>
+    <% end %>
+    <% repo_view_uniques = repo_view_uniques_hash.to_a %>
+    <% repo_view_uniques = repo_view_uniques.sort_by { |date, _| Date.parse(date) } %>
 
-<% repo_views = repo_traffic_data.map { |data| [data.timestamp, data.count] } %>
-<% repo_uniques = repo_traffic_data.map { |data| [data.timestamp, data.uniques] } %>
+    <% combined_view_data = [
+    { name: 'Views', data: repo_view_counts.to_h },
+    { name: 'Uniques', data: repo_view_uniques.to_h }
+    ] %>
+    <% repo_clone_data = RepoData::RepoTrafficDataClonesDaily.where(repo: @repo) %>
 
-<% combined_data = [
-  { name: 'Views', data: repo_views.to_h },
-  { name: 'Uniques', data: repo_uniques.to_h }
-] %>
+    <%# collect counts and fill in 0 for any missing dates  %>
+    <% repo_clone_counts = repo_clone_data.map { |data| [data.timestamp.strftime("%Y-%m-%d"), data.count] } %>
+    <% start_date = repo_clone_data.minimum(:timestamp).to_date %>
+    <% end_date = repo_clone_data.maximum(:timestamp).to_date %>
+    <% all_dates = (start_date..end_date).map { |date| date.strftime("%Y-%m-%d") } %>
+    <% repo_clone_counts_hash = repo_clone_counts.to_h %>
+    <% all_dates.each do |date| %>
+      <% repo_clone_counts_hash[date] ||= 0 %>
+    <% end %>
+    <% repo_clone_counts = repo_clone_counts_hash.to_a %>
+    <% repo_clone_counts = repo_clone_counts.sort_by { |date, _| Date.parse(date) } %>
 
-<%= line_chart combined_data %>
-
-
-    <h2> Traffic </h2>
-        <table class="table-auto border-collapse border border-gray-200 w-full text-left">
-        <thead>
-            <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2">Timestamp</th>
-            <th class="border border-gray-300 px-4 py-2">Views</th>
-            <th class="border border-gray-300 px-4 py-2">Unique Views</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% repo_traffic_data.each do |repo_traffic| %>
-            <tr class="hover:bg-gray-50">
-                <td class="border border-gray-300 px-4 py-2"><%= repo_traffic.timestamp %></td>
-                <td class="border border-gray-300 px-4 py-2"><%= repo_traffic.count %></td>
-                <td class="border border-gray-300 px-4 py-2"><%= repo_traffic.uniques %></td>
-            </tr>
-            <% end %>
-        </tbody>
-        </table>
-
+    <%# collect uniques and fill in 0 for any missing dates  %>
+    <% repo_clone_uniques = repo_clone_data.map { |data| [data.timestamp.strftime("%Y-%m-%d"), data.uniques] } %>
+    <% repo_clone_uniques_hash = repo_clone_uniques.to_h %>
+    <% all_dates.each do |date| %>
+      <% repo_clone_uniques_hash[date] ||= 0 %>
+    <% end %>
+    <% repo_clone_uniques = repo_clone_uniques_hash.to_a %>
+    <% repo_clone_uniques = repo_clone_uniques.sort_by { |date, _| Date.parse(date) } %>
     
+    <% combined_clone_data = [
+    { name: 'Views', data: repo_clone_counts.to_h },
+    { name: 'Uniques', data: repo_clone_uniques.to_h }
+    ] %>
+    <div class="flex flex-col w-3/4 auto mx-auto">
+        <div class="pb-5">
+            <%= line_chart combined_view_data, title: "view counts", xtitle: "date", ytitle: "count" %>
+        </div>
+        <div class="pb-5">
+            <%= line_chart combined_clone_data, title: "clone counts", xtitle: "date", ytitle: "count" %>
+        </div>
+    </div>
 </div>
