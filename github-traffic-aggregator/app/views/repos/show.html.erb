@@ -1,15 +1,10 @@
 
 <script src="https://cdn.jsdelivr.net/gh/alumuko/vanilla-datetimerange-picker@latest/dist/vanilla-datetimerange-picker.js"></script>
 
-<script>
-    window.addEventListener("load", function (event) {
-        new DateRangePicker('datetimerange-input1');
-    });
-</script>
 
 <div class="w-full h-full">
    <div class="flex flex-col">
-     <input type="text" id="datetimerange-input1" size="24" style="text-align:center">
+     <input type="text" data-controller="daterangepicker" size="24" style="text-align:center">
 
 
    <h1 class="text-2xl auto mx-auto text-center"> RepoData for <%= @repo.name %> </h1>
