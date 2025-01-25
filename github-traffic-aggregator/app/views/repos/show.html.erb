@@ -4,8 +4,13 @@
 
 <div class="w-full h-full">
    <div class="flex flex-col">
-     <input type="text" data-controller="daterangepicker" size="24" style="text-align:center">
-
+     <!--<input type="text" data-controller="daterangepicker" size="24" style="text-align:center">-->
+     <div class="flex justify-center">
+        <%= form_with url: repo_path(@repo), method: :get do |form| %>
+            <%= form.text_field :start_date_between, data: { controller: "daterangepicker" }, value: params[:start_date_between] %>
+            <%= form.submit "Filter by date range", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        <% end %>
+    </div>
 
    <h1 class="text-2xl auto mx-auto text-center"> RepoData for <%= @repo.name %> </h1>
     <% repo_view_data = RepoData::RepoTrafficDataViewsDaily.where(repo: @repo) %>
